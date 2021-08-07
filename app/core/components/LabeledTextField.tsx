@@ -1,7 +1,10 @@
-import { forwardRef, PropsWithoutRef } from "react"
+import { forwardRef, PropsWithoutRef, ComponentPropsWithoutRef } from "react"
 import { useFormContext } from "react-hook-form"
 
-export interface LabeledTextFieldProps extends PropsWithoutRef<JSX.IntrinsicElements["input"]> {
+import { Input } from "@chakra-ui/input"
+import { FormControl, FormLabel } from "@chakra-ui/form-control"
+
+export interface LabeledTextFieldProps extends ComponentPropsWithoutRef<typeof Input> {
   /** Field name. */
   name: string
   /** Field label. */
@@ -22,35 +25,17 @@ export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldPro
       : errors[name]?.message || errors[name]
 
     return (
-      <div {...outerProps}>
-        <label>
+      <FormControl {...outerProps}>
+        <FormLabel>
           {label}
-          <input disabled={isSubmitting} {...register(name)} {...props} />
-        </label>
-
+          <Input disabled={isSubmitting} {...register(name)} {...props} />
+        </FormLabel>
         {error && (
           <div role="alert" style={{ color: "red" }}>
             {error}
           </div>
         )}
-
-        <style jsx>{`
-          label {
-            display: flex;
-            flex-direction: column;
-            align-items: start;
-            font-size: 1rem;
-          }
-          input {
-            font-size: 1rem;
-            padding: 0.25rem 0.5rem;
-            border-radius: 3px;
-            border: 1px solid purple;
-            appearance: none;
-            margin-top: 0.5rem;
-          }
-        `}</style>
-      </div>
+      </FormControl>
     )
   }
 )

@@ -1,5 +1,6 @@
 import { ReactNode } from "react"
 import { Head } from "blitz"
+import { Container, Flex } from "@chakra-ui/react"
 
 type LayoutProps = {
   title?: string
@@ -14,7 +15,9 @@ const Layout = ({ title, children }: LayoutProps) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {children}
+      <Flex h="100vh" w="100vw" justify="center" align="center">
+        {children}
+      </Flex>
     </>
   )
 }
